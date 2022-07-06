@@ -58,7 +58,6 @@ module.exports = tempplateData => {
     return (`
     
         ${generateCards(tempplateData)}
-    </main>
-  </body>
+    
     `)
 }

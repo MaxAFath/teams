@@ -4,6 +4,7 @@ const path = require('path');
 const validator = require('email-validator');
 const isNumber = require('is-number');
 const template = require('./template');
+const page = require('./teampage');
 
 //objects
 const Employee = require('./lib/employee');
@@ -86,20 +87,20 @@ function addEmployee(role) {
             {
                 type: 'input',
                 name: 'mName',
-                message: 'Manager name?',
+                message: 'Engineer name?',
                 validate: nameInput => {
                     if (nameInput) {
                         return true;
                     }
                     else {
-                        console.log('Enter the manager name');
+                        console.log("Enter a name");
                         return false;
                     }
                 }
             }, {
                 type: 'input',
                 name: 'mEmail',
-                message: 'Enter manager email',
+                message: 'Enter Engineer email',
                 validate: answerInput => {
                     if (validator.validate(answerInput)) {
                         return true;
@@ -141,20 +142,20 @@ function addEmployee(role) {
             {
                 type: 'input',
                 name: 'mName',
-                message: 'Manager name?',
+                message: 'Intern name?',
                 validate: nameInput => {
                     if (nameInput) {
                         return true;
                     }
                     else {
-                        console.log('Enter the manager name');
+                        console.log('Enter a name');
                         return false;
                     }
                 }
             }, {
                 type: 'input',
                 name: 'mEmail',
-                message: 'Enter manager email',
+                message: 'Enter intern email',
                 validate: answerInput => {
                     if (validator.validate(answerInput)) {
                         return true;
@@ -172,13 +173,13 @@ function addEmployee(role) {
             }, {
                 type: 'input',
                 name: 'id',
-                message: "What is the Manager's ID number?",
+                message: "What is the Intern's ID number?",
                 validate: answer => {
                     if (isNumber(answer)) {
                         return true;
                     }
                     else {
-                        console.log('Enter a ID number');
+                        console.log('Enter a valid ID number');
                         return false;
                     }
                 }
@@ -204,7 +205,11 @@ function teamPorompt() {
         if ((role === 'Engineer') || (role === 'Intern')) {
             addEmployee(role);
         } else {
-            const teamPage = template(team);
+            var temp;
+            for (var i = 0; i < team.length; i++ ) {
+                 temp += template(team[i]);
+            }
+            const teamPage = page(temp);
             fs.writeFile('./src/index.html', teamPage, err => {
                 if (err) throw new Error(err);
             })

@@ -24,5 +24,8 @@ module.exports = tempateData => {
         </div>
     </header>
     <main>
+    ${tempateData}
+    </main>
+  </body>
     `)
 }
