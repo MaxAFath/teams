@@ -13,7 +13,7 @@ const Intern = require('./lib/intern');
 
 var team = []//array of employee objects
 var idArray = []//array of ids to prevent multiplus of same ids.
-
+makeTeam();
 function makeTeam() {
     return inquirer.prompt([
         {
@@ -81,7 +81,7 @@ function makeTeam() {
 }
 
 function addEmployee(role) {
-    if (role === 'Engineer') {
+    if (role == 'Engineer') {
         return inquirer.prompt([
             {
                 type: 'input',
@@ -136,7 +136,7 @@ function addEmployee(role) {
                 teamPorompt();
             })
     }
-    else if (role === 'Intern') {
+    else if (role == 'Intern') {
         return inquirer.prompt([
             {
                 type: 'input',
@@ -194,17 +194,14 @@ function addEmployee(role) {
 }
 
 function teamPorompt() {
+    var role = "test";
     return inquirer.prompt({
         type: 'list',
         name: 'member',
         choices: ['Engineer', 'Intern', 'Done building team']
     }).then(answer => {
-        var role = "";
-        if (answer === 'Engineer') {
-            role = 'Engineer';
-            addEmployee(role);
-        } else if (answer === 'Intern') {
-            role = 'Intern';
+        role = answer.member;
+        if ((role === 'Engineer') || (role === 'Intern')) {
             addEmployee(role);
         } else {
             const teamPage = template(team);
